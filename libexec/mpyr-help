@@ -7,7 +7,7 @@ print_summaries() {
   local longest_command=0
   local command
 
-  for command in $(mpy-commands); do
+  for command in $(mpyr-commands); do
     local file="$(command_path "$command")"
     if [ ! -h "$file" ]; then
       local summary="$(summary "$file")"
@@ -47,7 +47,7 @@ print_help() {
 }
 
 command_path() {
-  command -v "mpy-$command" || command -v "mpy-sh-$command" || true
+  command -v "mpyr-$command" || command -v "mpyr-sh-$command" || true
 }
 
 summary() {
@@ -74,20 +74,20 @@ truncate() {
   fi
 }
 
-# Provide mpy completions
+# Provide mpyr completions
 if [ "$1" = "--complete" ]; then
-  exec "mpy-commands"
+  exec "mpyr-commands"
   exit
 fi
 
 command="$1"
 case "$command" in
-"") echo "Usage: mpy <command> [<args>]
+"") echo "Usage: mpyr <command> [<args>]
 
-Some useful mpy commands are:
+Some useful mpyr commands are:
 $(print_summaries)
 
-See 'mpy help <command>' for information on a specific command."
+See 'mpyr help <command>' for information on a specific command."
 ;;
 *)
   file="$(command_path "$command")"
@@ -95,7 +95,7 @@ See 'mpy help <command>' for information on a specific command."
   if [ -n "$file" ]; then
     print_help "$file"
   else
-    echo "mpy: no such command \`$command'" >&2
+    echo "mpyr: no such command \`$command'" >&2
     exit 1
   fi
 esac

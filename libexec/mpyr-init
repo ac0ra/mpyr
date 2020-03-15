@@ -1,28 +1,28 @@
 #!/usr/bin/env bash
 # SOURCE
 # to instantiate with this, add:
-# tmp=`pwd`; # cd MPY_PATH/ && . mpy-init2 && cd $tmp
+# tmp=`pwd`; # cd MPY_PATH/ && . mpyr-init2 && cd $tmp
 # to your bashrc
 
-_mpy_resolve_link() {
+_mpyr_resolve_link() {
   $(type -p greadlink readlink | head -1) "$1"
 }
 
-_mpy_abs_dirname() {
+_mpyr_abs_dirname() {
   local cwd="$(pwd)"
   local path="$1"
   
   while [ -n "$path" ]; do
     cd "${path%/*}"
     local name="${path##*/}"
-    path="$(_mpy_resolve_link "$name" || true)"
+    path="$(_mpyr_resolve_link "$name" || true)"
   done
 
   pwd
   cd "$cwd"
 }
 
-_mpy_source() {
+_mpyr_source() {
   local out=`grep $'#[ \t]*SOURCE' $1`
   if [ "$out" == "" ]; then
     echo "0"
@@ -35,14 +35,14 @@ export MPY_PATH=`pwd`
 
 case "$0" in
 bash | zsh)
-  source ../completions/mpy.$0
+  source ../completions/mpyr.$0
   ;;
 -bash )
-  source ../completions/mpy.bash
+  source ../completions/mpyr.bash
   ;;
 esac
 
-function mpy() {
+function mpyr() {
     local original_path=$PATH
     local source_command=0
     export PATH="$MPY_PATH:$PATH"
@@ -52,14 +52,14 @@ function mpy() {
     command="$1"
     case "$command" in
     "" | "-h" | "--help" )
-      mpy-help
+      mpyr-help
       ;;
     * )
-      command_path="$(command -v "mpy-$command" || true)"
+      command_path="$(command -v "mpyr-$command" || true)"
       if [ ! -x "$command_path" ]; then
-        echo "mpy: no such command \`$command'"
+        echo "mpyr: no such command \`$command'"
       else
-          source_command=$(_mpy_source $command_path)
+          source_command=$(_mpyr_source $command_path)
           shift
           if [[ "$1" -eq "--complete" ]]; then
               $command_path "$@"

@@ -47,17 +47,17 @@ class APIServerProtocol:
     def cmd_ls(self):
 
 
-class MPy_Player_Menu(object):
+class MPyr_Player_Menu(object):
 
     def __init__(self):
         import argparse
         import sys
         parser = argparse.ArgumentParser(
-            description='Mpy Player',
-            usage='''mpy player <command> [<args>]
+            description='MPyr Player',
+            usage='''mpyr player <command> [<args>]
 
 The most commonly used player commands are:
-   start         Start an MPy instance.
+   start         Start an MPyr instance.
    kill          Cleanup an old instance.
    config        Read / Modify server configuration.
 ''')
@@ -70,7 +70,7 @@ The most commonly used player commands are:
         getattr(self, args.command)()
 
     def start(self):
-        parser = argparse.ArgumentParser(description='Start an MPy Instance')
+        parser = argparse.ArgumentParser(description='Start an MPyr Instance')
         parser.add_argument('profile')
         args = parser.parse_args(sys.argv[2:])
         print('weee')
@@ -85,12 +85,12 @@ The most commonly used player commands are:
         print('weee')
 
 
-class MPy_server_instance():
+class MPyr_server_instance():
 
     def __init__(self,args = False,config = False):
         import asyncio
         from mplayer.async import AsyncPlayer
-        import os
+        `rimport os
         from threading import Thread
         import logging
         import socket
@@ -105,9 +105,9 @@ class MPy_server_instance():
         if config:
            self.config = config
         else:
-            # Set configuration defaults
+            `r# Set configuration defaults
             home = os.getenv("HOME")
-            self.config['api_socket'] = home + '/.mpy/api.sock'
+            self.config['api_socket'] = home + '/.mpyr/api.sock'
             self.config['udp_port'] = 38472
             self.config['udp_enabled'] = True
             self.config['udp_host'] = '127.0.0.1'
@@ -167,10 +167,10 @@ class MPy_server_instance():
 if __name__ == '__main__':
     global server_lock = False
     global playlist = []
-    global keys = {}
-    MPy_player_Menu()
+    global conn_list = {}
+    MPyr_player_Menu()
     timer = 500
-    instance = MPy_server_instance()
+    instance = MPyr_server_instance()
     while timer > 0:
         
 

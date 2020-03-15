@@ -19,7 +19,7 @@ abs_dirname() {
   cd "$cwd"
 }
 
-_mpy_source() {
+_mpyr_source() {
   local out=`grep $'#[ \t]*SOURCE' $1`
   if [ "$out" == "" ]; then
     echo "0"
@@ -40,14 +40,14 @@ export PATH="$libexec_path:$PATH"
 command="$1"
 case "$command" in
 "" | "-h" | "--help" )
-  mpy-help
+  mpyr-help
   ;;
 * )
-  command_path="$(command -v "mpy-$command" || true)"
+  command_path="$(command -v "mpyr-$command" || true)"
   if [ ! -x "$command_path" ]; then
-    echo "mpy: no such command '$command'"
+    echo "mpyr: no such command '$command'"
   else
-      source_command=$(_mpy_source $command_path)
+      source_command=$(_mpyr_source $command_path)
       shift
       if [[ "$1" == '--complete' ]]; then
           $command_path "$@"

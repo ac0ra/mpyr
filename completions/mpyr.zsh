@@ -2,17 +2,17 @@ if [[ ! -o interactive ]]; then
     return
 fi
 
-compctl -K _mpy mpy
+compctl -K _mpyr mpyr
 
-_mpy() {
+_mpyr() {
   local word words completions
   read -cA words
   word="${words[2]}"
 
   if [ "${#words}" -eq 2 ]; then
-    completions="$(mpy commands)"
+    completions="$(mpyr commands)"
   else
-    completions="$(mpy completions "${word}")"
+    completions="$(mpyr completions "${word}")"
   fi
 
   reply=("${(ps:\n:)completions}")

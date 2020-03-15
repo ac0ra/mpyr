@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Usage: mpy commands
-# Summary: List all mpy commands
-# Help: This command is mostly used for autocompletion in various shells, and for `mpy help`.
+# Usage: mpyr commands
+# Summary: List all mpyr commands
+# Help: This command is mostly used for autocompletion in various shells, and for `mpyr help`.
 # Also, this command helps find commands that are named the same as potentially builtin shell commands (which, cd, etc)
 
 set -e
 
-# Provide mpy completions
+# Provide mpyr completions
 if [ "$1" = "--complete" ]; then
   echo --sh
   echo --no-sh
@@ -24,8 +24,8 @@ fi
 shopt -s nullglob
 
 { for path in ${PATH//:/$'\n'}; do
-    for command in "${path}/mpy-"*; do
-      command="${command##*mpy-}"
+    for command in "${path}/mpyr-"*; do
+      command="${command##*mpyr-}"
       if [ -n "$sh" ]; then
         if [ ${command:0:3} = "sh-" ]; then
           echo ${command##sh-}

@@ -1,14 +1,14 @@
-_mpy() {
+_mpyr() {
   COMPREPLY=()
   local word="${COMP_WORDS[COMP_CWORD]}"
 
   if [ "$COMP_CWORD" -eq 1 ]; then
-    COMPREPLY=( $(compgen -W "$(mpy commands)" -- "$word") )
+    COMPREPLY=( $(compgen -W "$(mpyr commands)" -- "$word") )
   else
     local command="${COMP_WORDS[1]}"
-    local completions="$(mpy completions "$command")"
+    local completions="$(mpyr completions "$command")"
     COMPREPLY=( $(compgen -W "$completions" -- "$word") )
   fi
 }
 
-complete -F _mpy mpy
+complete -F _mpyr mpyr
